@@ -4,7 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://cd85ea6lxnyd4" path="res://assets/down/CastleDungeon_tileset.png" id="6_choun"]
 [ext_resource type="Texture2D" uid="uid://c81pnhln01cvl" path="res://assets/game/move/move1_1.png" id="7_tipki"]
 [ext_resource type="Texture2D" uid="uid://dkcwq4ywxp7e1" path="res://assets/game/move/move1_2.png" id="8_85g3d"]
+[ext_resource type="Texture2D" uid="uid://bcsa1u4t2v6j5" path="res://assets/game/characters/npc.png" id="9_85g3d"]
 [ext_resource type="PackedScene" uid="uid://c1u8k6ny02t4y" path="res://scenes/player.tscn" id="9_bauo3"]
+[ext_resource type="Script" uid="uid://7ksl6lse084" path="res://scenes/npc.gd" id="9_choun"]
+[ext_resource type="Texture2D" uid="uid://v73tjr8lgbh0" path="res://assets/dialogue_leaf_1.png" id="12_eb6dy"]
+[ext_resource type="Script" uid="uid://d16h0r8oomlk3" path="res://scenes/area_2d.gd" id="12_jkv2x"]
+[ext_resource type="Script" uid="uid://c1p5vub10mdxv" path="res://scenes/dialogue_manager.gd" id="13_jbj1t"]
 [ext_resource type="PackedScene" path="res://scenes/prefabs/hazards/spikes_double.tscn" id="15_ycytw"]
 [ext_resource type="PackedScene" path="res://scenes/prefabs/interactables/spring_red.tscn" id="16_nih4k"]
 [ext_resource type="PackedScene" path="res://scenes/prefabs/collectibles/coin_gold_round.tscn" id="17_rmlt8"]
@@ -390,6 +395,12 @@ size = Vector2(25.25, 9)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_srnd8"]
 size = Vector2(35, 12)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgr6x"]
+size = Vector2(20, 43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mir43"]
+size = Vector2(51, 43)
+
 [node name="Main" type="Node2D" unique_id=2061129075]
 
 [node name="Level" type="Node2D" parent="." unique_id=1678372922]
@@ -422,6 +433,8 @@ position = Vector2(171, 288)
 shape = SubResource("RectangleShape2D_xencm")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Level/TerrainTileMaps/TerrainBase" unique_id=1865254531]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/TerrainTileMaps/TerrainBase/StaticBody2D" unique_id=559515381]
 position = Vector2(240.25, 370)
@@ -434,6 +447,7 @@ z_index = 10
 position = Vector2(102, 132)
 rotation = -3.1415927
 scale = Vector2(1, -1)
+collision_layer = 1
 
 [node name="PrefabInstances" type="Node2D" parent="Level" unique_id=2013556771]
 
@@ -492,3 +506,83 @@ texture = ExtResource("8_85g3d")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Move1_2" unique_id=1162999938]
 position = Vector2(326, 123)
 shape = SubResource("RectangleShape2D_srnd8")
+
+[node name="Npc" type="CharacterBody2D" parent="Level" unique_id=2008823610]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("9_choun")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Npc" unique_id=2084585993]
+position = Vector2(274, 337.6875)
+scale = Vector2(0.063252866, 0.05879888)
+texture = ExtResource("9_85g3d")
+
+[node name="Label" type="Label" parent="Level/Npc" unique_id=1104940726]
+visible = false
+offset_left = 246.0
+offset_top = 309.0
+offset_right = 301.0
+offset_bottom = 332.0
+text = "按t对话"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Npc" unique_id=2010939353]
+position = Vector2(273, 340.5)
+shape = SubResource("RectangleShape2D_hgr6x")
+
+[node name="Area2D" type="Area2D" parent="Level" unique_id=1075980485 node_paths=PackedStringArray("dialogue_manager")]
+collision_layer = 2
+script = ExtResource("12_jkv2x")
+dialogue_manager = NodePath("../../DialogueManager")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Area2D" unique_id=199724438]
+position = Vector2(275, 344)
+shape = SubResource("RectangleShape2D_mir43")
+
+[node name="DialogueManager" type="Node2D" parent="." unique_id=18743634 node_paths=PackedStringArray("text_display", "name_display", "hint_label")]
+position = Vector2(39, 154)
+script = ExtResource("13_jbj1t")
+text_display = NodePath("CanvasLayer/TextureRect/VBoxContainer/RichTextLabel2")
+name_display = NodePath("CanvasLayer/TextureRect/VBoxContainer/RichTextLabel")
+hint_label = NodePath("../Level/Npc/Label")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="DialogueManager" unique_id=1443698716]
+
+[node name="TextureRect" type="TextureRect" parent="DialogueManager/CanvasLayer" unique_id=1021971219]
+visible = false
+offset_left = 39.0
+offset_top = 154.0
+offset_right = 421.0
+offset_bottom = 274.0
+texture = ExtResource("12_eb6dy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogueManager/CanvasLayer/TextureRect" unique_id=1301567092]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 16.0
+offset_right = 352.0
+offset_bottom = 95.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogueManager/CanvasLayer/TextureRect/VBoxContainer" unique_id=334987020]
+layout_mode = 2
+bbcode_enabled = true
+text = "222"
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="DialogueManager/CanvasLayer/TextureRect/VBoxContainer" unique_id=41770168]
+layout_mode = 2
+bbcode_enabled = true
+text = "333"
+fit_content = true
+
+[node name="Labelhint" type="Label" parent="DialogueManager/CanvasLayer/TextureRect" unique_id=91013802]
+layout_mode = 0
+offset_left = 41.0
+offset_top = -7.0
+offset_right = 81.0
+offset_bottom = 16.0
+text = "111"
+
+[connection signal="body_entered" from="Level/Area2D" to="Level/ActorsAndCharacters/Player" method="_on_body_entered"]
+[connection signal="body_entered" from="Level/Area2D" to="Level/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Level/Area2D" to="Level/ActorsAndCharacters/Player" method="_on_body_exited"]
+[connection signal="body_exited" from="Level/Area2D" to="Level/Area2D" method="_on_body_exited"]
