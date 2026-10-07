@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://v73tjr8lgbh0" path="res://assets/dialogue_leaf_1.png" id="12_eb6dy"]
 [ext_resource type="Script" uid="uid://d16h0r8oomlk3" path="res://scenes/area_2d.gd" id="12_jkv2x"]
 [ext_resource type="Script" uid="uid://c1p5vub10mdxv" path="res://scenes/dialogue_manager.gd" id="13_jbj1t"]
+[ext_resource type="Texture2D" uid="uid://cwvu3gi05t1w4" path="res://assets/game/characters/menu.png" id="13_jkv2x"]
+[ext_resource type="FontFile" uid="uid://dpq6y66xng6b4" path="res://assets/x8y12pxDenkiChip.ttf" id="14_a8y0u"]
 [ext_resource type="PackedScene" path="res://scenes/prefabs/hazards/spikes_double.tscn" id="15_ycytw"]
 [ext_resource type="PackedScene" path="res://scenes/prefabs/interactables/spring_red.tscn" id="16_nih4k"]
 [ext_resource type="PackedScene" path="res://scenes/prefabs/collectibles/coin_gold_round.tscn" id="17_rmlt8"]
@@ -401,6 +403,9 @@ size = Vector2(20, 43)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mir43"]
 size = Vector2(51, 43)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ddje8"]
+size = Vector2(60.75, 28.5)
+
 [node name="Main" type="Node2D" unique_id=2061129075]
 
 [node name="Level" type="Node2D" parent="." unique_id=1678372922]
@@ -523,7 +528,9 @@ offset_left = 246.0
 offset_top = 309.0
 offset_right = 301.0
 offset_bottom = 332.0
-text = "按t对话"
+theme_override_fonts/font = ExtResource("14_a8y0u")
+theme_override_font_sizes/font_size = 10
+text = "press Enter to talk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Npc" unique_id=2010939353]
 position = Vector2(273, 340.5)
@@ -537,6 +544,17 @@ dialogue_manager = NodePath("../../DialogueManager")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Area2D" unique_id=199724438]
 position = Vector2(275, 344)
 shape = SubResource("RectangleShape2D_mir43")
+
+[node name="Menu" type="Sprite2D" parent="Level" unique_id=789952986]
+position = Vector2(357, 354)
+scale = Vector2(0.13582473, 0.12689386)
+texture = ExtResource("13_jkv2x")
+
+[node name="Area2D2" type="Area2D" parent="Level" unique_id=1664181328]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Area2D2" unique_id=657367092]
+position = Vector2(356.625, 353.75)
+shape = SubResource("RectangleShape2D_ddje8")
 
 [node name="DialogueManager" type="Node2D" parent="." unique_id=18743634 node_paths=PackedStringArray("text_display", "name_display", "hint_label")]
 position = Vector2(39, 154)
@@ -564,12 +582,18 @@ offset_bottom = 95.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="DialogueManager/CanvasLayer/TextureRect/VBoxContainer" unique_id=334987020]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.47058824, 0.1764706, 0.09411765, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/normal_font = ExtResource("14_a8y0u")
 bbcode_enabled = true
 text = "222"
 fit_content = true
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="DialogueManager/CanvasLayer/TextureRect/VBoxContainer" unique_id=41770168]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/normal_font = ExtResource("14_a8y0u")
 bbcode_enabled = true
 text = "333"
 fit_content = true
@@ -582,6 +606,8 @@ offset_right = 81.0
 offset_bottom = 16.0
 text = "111"
 
+[connection signal="body_entered" from="Level/TerrainTileMaps/TerrainBase/Area2D" to="Level/ActorsAndCharacters/Player" method="_on_water_body_entered"]
+[connection signal="body_exited" from="Level/TerrainTileMaps/TerrainBase/Area2D" to="Level/ActorsAndCharacters/Player" method="_on_water_body_exited"]
 [connection signal="body_entered" from="Level/Area2D" to="Level/ActorsAndCharacters/Player" method="_on_body_entered"]
 [connection signal="body_entered" from="Level/Area2D" to="Level/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Level/Area2D" to="Level/ActorsAndCharacters/Player" method="_on_body_exited"]
