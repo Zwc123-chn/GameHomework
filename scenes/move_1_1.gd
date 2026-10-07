@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var point_a: Vector2 = Vector2.ZERO      # 起点（在检查器中设置）
-@export var point_b: Vector2 = Vector2(200, 0)   # 终点（在检查器中设置）
+@export var point_b: Vector2 = Vector2(80, 0)   # 终点（在检查器中设置）
 @export var speed: float = 15               # 移动速度（像素/秒）
 
 var target: Vector2

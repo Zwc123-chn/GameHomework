@@ -4,15 +4,11 @@ signal item_picked()
 
 # 各类物品全局计数器
 var count_beef: int = 0
-var count_key: int = 0
-var count_coin: int = 0
+var flag = false
 
 func pickup_item(item_type:String):
 	match item_type:
 		"beef":
 			count_beef += 1
-		"key":
-			count_key += 1
-		"coin":
-			count_coin += 1
+
 	emit_signal("item_picked")

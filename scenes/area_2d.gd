@@ -3,6 +3,7 @@ extends Area2D
 @export var dialogue_manager: Node
 @export var npc_name: String = "Maya"
 @export var lines: Array = ["Hello, welcome here!", "I'm Maya, the person in charge here. ", "You have been hired as the chef of our underground inn. ","You need to collect the raw materials for the dishes by yourself.","I will provide you with the menu.","Every time you successfully prepare a dish, we will grant you a skill. ","The first one is the Immortality Spell. ","When your health reaches zero, you will be teleported back to a tree nearby. ","Now go and get your menu from the table!"]
+@export var lines2: Array = ["Wow, well done!", "You have made your first step."]
 @export var label_default_text: String = "press Enter to talk" # 初始文字，编辑器面板可以修改
 
 var player_in_range: bool = false
@@ -35,5 +36,8 @@ func _process(delta):
 	
 	if player_in_range and Input.is_action_just_pressed("ui_accept"):
 
-		if dialogue_manager:
-			dialogue_manager.start_dialogue(npc_name, lines)
+		if dialogue_manager :
+			if Main.count_beef==5:
+				dialogue_manager.start_dialogue(npc_name, lines2)
+			else:
+				dialogue_manager.start_dialogue(npc_name, lines)

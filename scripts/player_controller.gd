@@ -162,7 +162,10 @@ func refresh_ui():
 	var ui_label = $CanvasLayer/Control/VBoxContainer/HBoxContainer/Label
 	ui_label.text = "* %d " % [Main.count_beef]
 func take_damage(amount: float):
-	hp -= 20
+	if Main.flag == false:
+		hp -= 20
+	else :
+		hp-=1
 	var ui_label = $CanvasLayer/Control/HBoxContainer/Label
 	ui_label.text = "hp: %d " % [hp]
 	if hp <= 0:
