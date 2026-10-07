@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://yt2h6hbjn26q"]
 
-[ext_resource type="Texture2D" uid="uid://dol8b5h5gssoi" path="res://assets/game/Pixel_foods/Chicken_fillet.png" id="1_o526q"]
+[ext_resource type="Texture2D" uid="uid://cki5kcqjxsmyn" path="res://assets/game/Pixel_foods/Beef_steack.png" id="1_o526q"]
 [ext_resource type="FontFile" uid="uid://dpq6y66xng6b4" path="res://assets/x8y12pxDenkiChip.ttf" id="2_4b615"]
 
 [node name="HBoxContainer" type="HBoxContainer" unique_id=851172213]
@@ -14,4 +14,4 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 9
 theme_override_fonts/font = ExtResource("2_4b615")
-text = "* 1"
+text = "* 0"

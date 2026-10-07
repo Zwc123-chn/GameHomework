@@ -5,14 +5,17 @@
 [ext_resource type="PackedScene" uid="uid://yt2h6hbjn26q" path="res://scenes/h_box_container.tscn" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://dmu5ti4wwt0tl" path="res://scenes/v_box_container.gd" id="3_qlg0r"]
 [ext_resource type="Script" uid="uid://b760w12vl10m8" path="res://scenes/h_box_container.gd" id="4_qlg0r"]
+[ext_resource type="FontFile" uid="uid://dpq6y66xng6b4" path="res://assets/x8y12pxDenkiChip.ttf" id="6_tuyoq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_player"]
 radius = 5.0
 height = 17.0
 
-[node name="Player" type="CharacterBody2D" unique_id=2098904787]
+[node name="Player" type="CharacterBody2D" unique_id=2098904787 node_paths=PackedStringArray("player", "label1") groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_g2els")
+player = NodePath(".")
+label1 = NodePath("CanvasLayer/Control/Label")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=921388463]
 texture_filter = 1
@@ -49,3 +52,31 @@ script = ExtResource("3_qlg0r")
 [node name="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer" unique_id=851172213 instance=ExtResource("3_dqkch")]
 layout_mode = 2
 script = ExtResource("4_qlg0r")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=542690555]
+layout_mode = 0
+offset_left = 413.0
+offset_top = -6.0
+offset_right = 500.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer" unique_id=1572324463]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("6_tuyoq")
+text = "hp:100"
+
+[node name="Label" type="Label" parent="CanvasLayer/Control" unique_id=1988289762]
+visible = false
+layout_mode = 0
+offset_left = 108.0
+offset_top = 100.0
+offset_right = 380.0
+offset_bottom = 165.0
+theme_override_colors/font_color = Color(0.89765835, 0, 0.13096759, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("6_tuyoq")
+theme_override_font_sizes/font_size = 64
+text = "YOU DIED!"

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dgda8qvxq3ng5"]
+
+[ext_resource type="Script" uid="uid://veirt2iewqa6" path="res://scenes/beef.gd" id="1_3i3mq"]
+[ext_resource type="Texture2D" uid="uid://cki5kcqjxsmyn" path="res://assets/game/Pixel_foods/Beef_steack.png" id="2_u8u7x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qn21o"]
+radius = 4.1231055
+
+[node name="beef" type="Area2D" unique_id=1957052515]
+script = ExtResource("1_3i3mq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=230349838]
+position = Vector2(144, 181)
+shape = SubResource("CircleShape2D_qn21o")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1044536319]
+z_index = 1
+position = Vector2(144, 181.00002)
+scale = Vector2(0.4062497, 0.35937482)
+texture = ExtResource("2_u8u7x")
