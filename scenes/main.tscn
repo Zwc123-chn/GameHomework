@@ -28,6 +28,9 @@
 [ext_resource type="Texture2D" uid="uid://c54r641wdu33h" path="res://assets/kenney/tiles/tile_0053.png" id="22_vxglm"]
 [ext_resource type="Texture2D" uid="uid://ly776jbb24od" path="res://assets/kenney/tiles/tile_0023.png" id="23_2f3dj"]
 [ext_resource type="Texture2D" uid="uid://ptbiq1oabta7" path="res://assets/kenney/tiles/tile_0142.png" id="24_yq6so"]
+[ext_resource type="Texture2D" uid="uid://bib1wohkx4tw6" path="res://assets/game/signs/direction_sign_left.png" id="27_tel4y"]
+[ext_resource type="Script" uid="uid://dw2jy7k01uqja" path="res://scenes/welcome_2.gd" id="28_qkpxi"]
+[ext_resource type="Texture2D" uid="uid://bcro8q3h7f7t4" path="res://assets/dialogue_wood_2a.png" id="29_5q0nq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ya4ey"]
 texture = ExtResource("6_choun")
@@ -427,6 +430,9 @@ size = Vector2(35, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aj4qu"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eylyu"]
+size = Vector2(18, 19)
+
 [node name="Main" type="Node2D" unique_id=2061129075]
 script = ExtResource("1_dp3eg")
 
@@ -471,7 +477,7 @@ shape = SubResource("RectangleShape2D_go7ri")
 
 [node name="Player" parent="Level/ActorsAndCharacters" unique_id=1343528246 instance=ExtResource("9_bauo3")]
 z_index = 10
-position = Vector2(102, 132)
+position = Vector2(98, 132)
 rotation = -3.1415927
 scale = Vector2(1, -1)
 collision_layer = 1
@@ -651,11 +657,26 @@ theme_override_font_sizes/font_size = 8
 text = "Enter 4 numbers"
 
 [node name="Label" type="Label" parent="Level/box" unique_id=1807407183]
-offset_left = 122.0
-offset_top = 244.0
-offset_right = 273.0
-offset_bottom = 267.0
+offset_left = 87.0
+offset_top = 318.0
+offset_right = 238.0
+offset_bottom = 341.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("14_a8y0u")
+theme_override_font_sizes/font_size = 10
 text = "Press Enter to open"
+
+[node name="Label2" type="Label" parent="Level/box" unique_id=1425848887]
+offset_left = 46.0
+offset_top = 301.0
+offset_right = 250.0
+offset_bottom = 338.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("14_a8y0u")
+text = "You were gifted an armor 
+that can protect you!"
 
 [node name="HINT" type="Sprite2D" parent="Level" unique_id=1262272496]
 position = Vector2(310, -68)
@@ -695,6 +716,54 @@ shape = SubResource("RectangleShape2D_aj4qu")
 
 [node name="beef5" parent="Level" unique_id=337450955 instance=ExtResource("15_muem4")]
 position = Vector2(-50, -198)
+
+[node name="welcome" type="Sprite2D" parent="Level" unique_id=743481861]
+position = Vector2(123, 144)
+texture = ExtResource("27_tel4y")
+
+[node name="welcome2" type="Area2D" parent="Level" unique_id=226078608]
+script = ExtResource("28_qkpxi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/welcome2" unique_id=1394630828]
+position = Vector2(123, 143.5)
+shape = SubResource("RectangleShape2D_eylyu")
+
+[node name="TextureRect" type="TextureRect" parent="Level/welcome2" unique_id=820016608]
+offset_left = 81.0
+offset_top = 98.0
+offset_right = 171.0
+offset_bottom = 153.0
+texture = ExtResource("29_5q0nq")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Level/welcome2/TextureRect" unique_id=1228471376]
+layout_mode = 0
+offset_left = 6.0
+offset_right = 85.0
+offset_bottom = 50.0
+
+[node name="Label" type="Label" parent="Level/welcome2/TextureRect/VBoxContainer" unique_id=1510071142]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("14_a8y0u")
+theme_override_font_sizes/font_size = 6
+
+[node name="Label2" type="Label" parent="Level/welcome2/TextureRect/VBoxContainer" unique_id=1525051824]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("14_a8y0u")
+theme_override_font_sizes/font_size = 6
+text = "W/A/D  jump/left/right"
+
+[node name="Label3" type="Label" parent="Level/welcome2/TextureRect/VBoxContainer" unique_id=1556483662]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 1
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("14_a8y0u")
+theme_override_font_sizes/font_size = 6
+text = "Now you can dive into the 
+water to find Maya!"
 
 [node name="DialogueManager" type="Node2D" parent="." unique_id=18743634 node_paths=PackedStringArray("text_display", "name_display", "hint_label")]
 position = Vector2(39, 154)

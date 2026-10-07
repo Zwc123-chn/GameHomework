@@ -2,6 +2,7 @@ extends CharacterBody2D
 @export var spawn_point: Vector2
 @export var player: CharacterBody2D
 var hp: int
+var is_dead: bool = false
 @export var label1 : Label
 @export var max_hp: int = 100
 @export_category("移动参数")
@@ -29,11 +30,11 @@ var in_water:bool = false # 水体标记
 
 func _physics_process(delta: float) -> void:
 	if in_water:
-		handle_water_physics(delta) # 水下物理优先
+		handle_water_physics(delta) 
 	else:
 		if !flying:
 			apply_gravity(delta)
-			handle_jump() # 现在这里是新版二段跳逻辑
+			handle_jump() 
 		else:
 			handle_vertical_movement(delta)
 	
@@ -41,7 +42,6 @@ func _physics_process(delta: float) -> void:
 	update_sprite_direction()
 	move_and_slide()
 
-	# 落地重置跳跃次数（关键！踩地就恢复2次跳跃）
 	if is_on_floor():
 		jump_count = 0
 
@@ -108,15 +108,12 @@ func handle_horizontal_movement(delta: float) -> void:
 				deceleration * delta
 		)
 
-# ==========【重写handle_jump，实现二段跳】==========
 func handle_jump() -> void:
 	if Input.is_action_just_pressed("jump") and jump_count < max_jump_count:
 		jump_count +=1
 		if jump_count == 1:
-			# 第一段跳
 			velocity.y = jump_velocity
 		else:
-			# 空中二段跳
 			velocity.y = double_jump_velocity
 
 func update_sprite_direction() -> void:
@@ -162,8 +159,10 @@ func refresh_ui():
 	var ui_label = $CanvasLayer/Control/VBoxContainer/HBoxContainer/Label
 	ui_label.text = "* %d " % [Main.count_beef]
 func take_damage(amount: float):
+	if is_dead:
+		return
 	if Main.flag == false:
-		hp -= 20
+		hp -= 30
 	else :
 		hp-=1
 	var ui_label = $CanvasLayer/Control/HBoxContainer/Label
@@ -172,9 +171,16 @@ func take_damage(amount: float):
 		hp = 0
 		die()
 func die():
+	if is_dead:
+		return  
+	is_dead = true
 	print("玩家死亡！")
 	label1.visible=true
 	await get_tree().create_timer(1.0).timeout
 	label1.visible=false
 	position = spawn_point
 	hp = max_hp
+	var ui_label = $CanvasLayer/Control/HBoxContainer/Label
+	ui_label.text = "hp: %d " % [hp]
+	await get_tree().create_timer(1.0).timeout
+	is_dead = false 

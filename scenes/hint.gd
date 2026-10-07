@@ -10,9 +10,7 @@ func _ready():
 func _on_player_enter(body: Node2D):
 	if body.is_in_group("Player"):
 		texture_rect.visible = true
-		print("玩家进入提示区域")
 
 func _on_player_leave(body: Node2D):
 	if body.is_in_group("Player"):
 		texture_rect.visible = false
-		print("玩家离开提示区域")

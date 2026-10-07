@@ -27,7 +27,6 @@ func start_dialogue(npc_name: String, lines: Array):
 func show_line():
 	name_display.text = speaker_name
 	text_display.text = current_lines[current_index]
-	# 判断：当前是不是最后一句
 	if current_index >= current_lines.size() - 1:
 		hint_label.text = "press Esc to exit"
 	else:
@@ -49,7 +48,6 @@ func close_dialogue():
 
 func _process(delta):
 	if is_dialog_open:
-		# T按键，继续下一句
 		if Input.is_action_just_pressed("ui_accept"):
 			if just_opened:
 				
@@ -57,7 +55,6 @@ func _process(delta):
 			else:
 			
 				next_line()
-		# ui_cancel(ESC) 随时关闭对话
 		if Input.is_action_just_pressed("ui_cancel"):
 			
 			close_dialogue()
