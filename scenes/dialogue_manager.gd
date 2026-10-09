@@ -14,7 +14,8 @@ func start_dialogue(npc_name: String, lines: Array):
 	if is_dialog_open:
 		next_line()
 		return
-	
+	$CanvasLayer/TextureRect/TextureRect.visible = true
+	$CanvasLayer/TextureRect/TextureRect2.visible = false
 
 	is_dialog_open = true
 	just_opened = true
@@ -27,8 +28,10 @@ func start_dialogue(npc_name: String, lines: Array):
 func show_line():
 	name_display.text = speaker_name
 	text_display.text = current_lines[current_index]
-	if current_index >= current_lines.size() - 1:
-		hint_label.text = "press Esc to exit"
+
+	if current_index >= current_lines.size() - 2:
+		$CanvasLayer/TextureRect/TextureRect.visible = false
+		$CanvasLayer/TextureRect/TextureRect2.visible = true
 	else:
 		hint_label.text = "press Enter to continue"
 
